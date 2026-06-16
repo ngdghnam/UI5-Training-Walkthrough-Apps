@@ -93,12 +93,57 @@
           "name": "RouteProducts",
           "pattern": ":?query:",
           "target": ["TargetProducts"]
+        },
+        {
+          "name": "RouteProductDetail",
+          "pattern": "ProductDetail/{ProductID}",
+          "target": ["TargetProductDetail"]
+        },
+        {
+          "name": "RouteCategories",
+          "pattern": "Categories",
+          "target": ["TargetCategories"]
+        },
+        {
+          "name": "RouteCustomers",
+          "pattern": "Customers",
+          "target": ["TargetCustomers"]
+        },
+        {
+          "name": "RouteOrders",
+          "pattern": "Orders",
+          "target": ["TargetOrders"]
+        },
+        {
+          "name": "RouteOrderDetail",
+          "pattern": "OrderDetail/{OrderID}",
+          "target": ["TargetOrderDetail"]
         }
       ],
       "targets": {
         "TargetProducts": {
           "id": "Products",
           "name": "Products"
+        },
+        "TargetProductDetail": {
+          "id": "ProductDetail",
+          "name": "ProductDetail"
+        },
+        "TargetCategories": {
+          "id": "Categories",
+          "name": "Categories"
+        },
+        "TargetCustomers": {
+          "id": "Customers",
+          "name": "Customers"
+        },
+        "TargetOrders": {
+          "id": "Orders",
+          "name": "Orders"
+        },
+        "TargetOrderDetail": {
+          "id": "OrderDetail",
+          "name": "OrderDetail"
         }
       }
     },

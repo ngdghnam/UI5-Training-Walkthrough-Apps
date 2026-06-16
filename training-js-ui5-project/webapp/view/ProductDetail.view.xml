@@ -1,0 +1,58 @@
+<mvc:View controllerName="trainingjsui5project.controller.ProductDetail"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:form="sap.ui.layout.form">
+    <Page id="productDetailPage" title="{i18n>productDetailTitle}" showNavButton="true" navButtonPress=".onNavBackPress">
+        <content>
+            <ObjectHeader
+                id="productHeader"
+                title="{ProductName}"
+                number="{
+                    path: 'UnitPrice',
+                    type: 'sap.ui.model.type.Float',
+                    formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}
+                }"
+                numberUnit="USD">
+                <attributes>
+                    <ObjectAttribute title="Category" text="{Category/CategoryName}" />
+                    <ObjectAttribute title="Supplier" text="{Supplier/CompanyName}" />
+                </attributes>
+                <statuses>
+                    <ObjectStatus
+                        title="Status"
+                        text="{= ${Discontinued} ? 'Discontinued' : 'Active' }"
+                        state="{= ${Discontinued} ? 'Error' : 'Success' }" />
+                </statuses>
+            </ObjectHeader>
+
+            <form:SimpleForm
+                id="productDetailsForm"
+                editable="false"
+                layout="ResponsiveGridLayout"
+                title="Product Information"
+                labelSpanXL="3" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0"
+                columnsXL="1" columnsL="1" columnsM="1"
+                singleContainerFullSize="false"
+                class="sapUiResponsiveMargin">
+                <form:content>
+                    <Label text="Product ID" />
+                    <Text text="{ProductID}" />
+                    
+                    <Label text="Quantity Per Unit" />
+                    <Text text="{QuantityPerUnit}" />
+
+                    <Label text="Units In Stock" />
+                    <Text text="{UnitsInStock}" />
+
+                    <Label text="Units On Order" />
+                    <Text text="{UnitsOnOrder}" />
+
+                    <Label text="Reorder Level" />
+                    <Text text="{ReorderLevel}" />
+                </form:content>
+            </form:SimpleForm>
+        </content>
+    </Page>
+</mvc:View>

@@ -1,0 +1,68 @@
+<mvc:View controllerName="trainingjsui5project.controller.OrderDetail"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:form="sap.ui.layout.form">
+    <Page id="orderDetailPage" title="Order Details" showNavButton="true" navButtonPress=".onNavBackPress">
+        <content>
+            <ObjectHeader
+                id="orderHeader"
+                title="Order #{OrderID}"
+                number="{
+                    path: 'Freight',
+                    type: 'sap.ui.model.type.Float',
+                    formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}
+                }"
+                numberUnit="USD">
+                <attributes>
+                    <ObjectAttribute title="Customer" text="{Customer/CompanyName}" />
+                    <ObjectAttribute title="Ship To" text="{ShipCity}, {ShipCountry}" />
+                    <ObjectAttribute title="Order Date" text="{
+                        path: 'OrderDate',
+                        type: 'sap.ui.model.type.Date',
+                        formatOptions: {style: 'long'}
+                    }" />
+                </attributes>
+            </ObjectHeader>
+
+            <Table id="orderItemsTable" items="{
+                path: 'Order_Details',
+                parameters: {
+                    expand: 'Product'
+                }
+            }" headerText="Order Items" class="sapUiResponsiveMargin" width="auto">
+                <columns>
+                    <Column>
+                        <Text text="Product" />
+                    </Column>
+                    <Column hAlign="End">
+                        <Text text="Unit Price" />
+                    </Column>
+                    <Column hAlign="End">
+                        <Text text="Quantity" />
+                    </Column>
+                    <Column hAlign="End">
+                        <Text text="Discount" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <ObjectIdentifier title="{Product/ProductName}" text="ID: {ProductID}" />
+                            <Text text="{
+                                path: 'UnitPrice',
+                                type: 'sap.ui.model.type.Float',
+                                formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}
+                            }" />
+                            <Text text="{Quantity}" />
+                            <Text text="{
+                                path: 'Discount',
+                                type: 'sap.ui.model.type.Float',
+                                formatOptions: {style: 'percent'}
+                            }" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

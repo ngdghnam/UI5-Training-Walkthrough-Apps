@@ -3,7 +3,8 @@
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
         <Table id="ProductTable" growing="true" sticky="ColumnHeaders" width="auto"
-            items="{path: '/Products',sorter: { path: 'ProductID'}}">
+            items="{path: '/Products',sorter: { path: 'ProductID'}}"
+            class="sapUiResponsiveMargin">
 
             <!-- Headers -->
             <columns>
@@ -32,7 +33,7 @@
 
             <!-- Items -->
             <items>
-                <ColumnListItem type="Navigation" press="">
+                <ColumnListItem type="Navigation" press=".onNavToDetailPress">
                     <cells>
                         <Label text="{path: 'ProductID', type: 'sap.ui.model.odata.type.String'}"
                             design="Bold" />
