@@ -7,5 +7,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], (Controller) => {
     _onRoutematched() {
       let oModel = this.getView().getModel();
     },
+
+    onNavToDetailPress() {},
   });
 });
