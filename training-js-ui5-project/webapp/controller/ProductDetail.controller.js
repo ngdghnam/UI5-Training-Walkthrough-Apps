@@ -1,9 +1,11 @@
 sap.ui.define([
-    "./BaseController"
-], function (BaseController) {
+    "./BaseController",
+    "../model/formatter"
+], function (BaseController, formatter) {
     "use strict";
 
     return BaseController.extend("trainingjsui5project.controller.ProductDetail", {
+        formatter: formatter,
         onInit: function () {
             var oRouter = this.getRouter();
             oRouter.getRoute("RouteProductDetail").attachPatternMatched(this._onObjectMatched, this);

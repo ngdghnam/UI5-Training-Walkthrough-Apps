@@ -44,12 +44,13 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": false,
+    "flexEnabled": true,
     "dependencies": {
       "minUI5Version": "1.149.0",
       "libs": {
         "sap.m": {},
-        "sap.ui.core": {}
+        "sap.ui.core": {},
+        "sap.ui.comp": {}
       }
     },
     "contentDensities": {
@@ -92,32 +93,16 @@
         {
           "name": "RouteProducts",
           "pattern": ":?query:",
-          "target": ["TargetProducts"]
+          "target": [
+            "TargetProducts"
+          ]
         },
         {
           "name": "RouteProductDetail",
           "pattern": "ProductDetail/{ProductID}",
-          "target": ["TargetProductDetail"]
-        },
-        {
-          "name": "RouteCategories",
-          "pattern": "Categories",
-          "target": ["TargetCategories"]
-        },
-        {
-          "name": "RouteCustomers",
-          "pattern": "Customers",
-          "target": ["TargetCustomers"]
-        },
-        {
-          "name": "RouteOrders",
-          "pattern": "Orders",
-          "target": ["TargetOrders"]
-        },
-        {
-          "name": "RouteOrderDetail",
-          "pattern": "OrderDetail/{OrderID}",
-          "target": ["TargetOrderDetail"]
+          "target": [
+            "TargetProductDetail"
+          ]
         }
       ],
       "targets": {
@@ -128,22 +113,6 @@
         "TargetProductDetail": {
           "id": "ProductDetail",
           "name": "ProductDetail"
-        },
-        "TargetCategories": {
-          "id": "Categories",
-          "name": "Categories"
-        },
-        "TargetCustomers": {
-          "id": "Customers",
-          "name": "Customers"
-        },
-        "TargetOrders": {
-          "id": "Orders",
-          "name": "Orders"
-        },
-        "TargetOrderDetail": {
-          "id": "OrderDetail",
-          "name": "OrderDetail"
         }
       }
     },

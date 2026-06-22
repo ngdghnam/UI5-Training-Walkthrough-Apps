@@ -1,58 +1,158 @@
 <mvc:View controllerName="trainingjsui5project.controller.ProductDetail"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns:form="sap.ui.layout.form">
-    <Page id="productDetailPage" title="{i18n>productDetailTitle}" showNavButton="true" navButtonPress=".onNavBackPress">
-        <content>
-            <ObjectHeader
-                id="productHeader"
-                title="{ProductName}"
-                number="{
-                    path: 'UnitPrice',
-                    type: 'sap.ui.model.type.Float',
-                    formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}
-                }"
-                numberUnit="USD">
-                <attributes>
-                    <ObjectAttribute title="Category" text="{Category/CategoryName}" />
-                    <ObjectAttribute title="Supplier" text="{Supplier/CompanyName}" />
-                </attributes>
-                <statuses>
-                    <ObjectStatus
-                        title="Status"
-                        text="{= ${Discontinued} ? 'Discontinued' : 'Active' }"
-                        state="{= ${Discontinued} ? 'Error' : 'Success' }" />
-                </statuses>
-            </ObjectHeader>
+    xmlns:layout="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:uxap="sap.uxap">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" showFooter="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <Title text="{ProductName}" wrapping="true" class="sapUiSmallMarginEnd"/>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <FlexBox wrap="Wrap" fitContainer="true" alignItems="Center">
+                        <Title text="{ProductName}" wrapping="true" class="sapUiSmallMarginEnd"/>
+                    </FlexBox>
+                </uxap:snappedHeading>
+                <uxap:navigationActions>
+                    <Button icon="sap-icon://nav-back" type="Transparent" press=".onNavBackPress" tooltip="Back"/>
+                </uxap:navigationActions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
 
-            <form:SimpleForm
-                id="productDetailsForm"
-                editable="false"
-                layout="ResponsiveGridLayout"
-                title="Product Information"
-                labelSpanXL="3" labelSpanL="4" labelSpanM="4" labelSpanS="12"
-                adjustLabelSpan="false"
-                emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0"
-                columnsXL="1" columnsL="1" columnsM="1"
-                singleContainerFullSize="false"
-                class="sapUiResponsiveMargin">
-                <form:content>
-                    <Label text="Product ID" />
-                    <Text text="{ProductID}" />
-                    
-                    <Label text="Quantity Per Unit" />
-                    <Text text="{QuantityPerUnit}" />
+        <uxap:headerContent>
+            <HBox wrap="Wrap" fitContainer="true">
+                <VBox class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
+                    <Label text="Price" />
+                    <ObjectNumber number="{path: 'UnitPrice'}" unit="$" state="{path: 'UnitPrice', formatter: '.formatter.priceState'}" emphasized="true" />
+                </VBox>
+                
+                <VBox class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
+                    <Label text="Status" />
+                    <ObjectStatus text="{= ${Discontinued} ? 'Discontinued' : 'Active' }" state="{= ${Discontinued} ? 'Error' : 'Success' }" icon="{= ${Discontinued} ? 'sap-icon://decline' : 'sap-icon://accept' }" />
+                </VBox>
 
-                    <Label text="Units In Stock" />
-                    <Text text="{UnitsInStock}" />
+                <VBox class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
+                    <Label text="Category" />
+                    <Text text="{Category/CategoryName}" />
+                </VBox>
 
-                    <Label text="Units On Order" />
-                    <Text text="{UnitsOnOrder}" />
+                <VBox class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
+                    <Label text="Supplier" />
+                    <Text text="{Supplier/CompanyName}" />
+                </VBox>
+            </HBox>
+        </uxap:headerContent>
 
-                    <Label text="Reorder Level" />
-                    <Text text="{ReorderLevel}" />
-                </form:content>
-            </form:SimpleForm>
-        </content>
-    </Page>
+        <uxap:sections>
+            <!-- SECTION 1: Product Info -->
+            <uxap:ObjectPageSection title="General Information" titleUppercase="false">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection titleUppercase="false">
+                        <uxap:blocks>
+                            <form:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="4" labelSpanM="4" labelSpanS="12" columnsXL="2" columnsL="2" columnsM="1">
+                                <form:content>
+                                    <Label text="Product ID" />
+                                    <Text text="{ProductID}" />
+                                    
+                                    <Label text="Quantity Per Unit" />
+                                    <Text text="{QuantityPerUnit}" />
+
+                                    <Label text="Units In Stock" />
+                                    <ObjectStatus text="{UnitsInStock}" state="{path: 'UnitsInStock', formatter: '.formatter.stockState'}" />
+
+                                    <Label text="Units On Order" />
+                                    <ObjectStatus text="{UnitsOnOrder}" state="{path: 'UnitsOnOrder', formatter: '.formatter.orderState'}" />
+
+                                    <Label text="Reorder Level" />
+                                    <Text text="{ReorderLevel}" />
+
+                                    <Label text="Description" />
+                                    <Text text="{Category/Description}" />
+                                </form:content>
+                            </form:SimpleForm>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- SECTION 2: Supplier Info -->
+            <uxap:ObjectPageSection title="Supplier Information" titleUppercase="false">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection titleUppercase="false">
+                        <uxap:blocks>
+                            <form:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="4" labelSpanM="4" labelSpanS="12" columnsXL="2" columnsL="2" columnsM="1">
+                                <form:content>
+                                    <Label text="Company" />
+                                    <Text text="{Supplier/CompanyName}" />
+                                    
+                                    <Label text="Contact Person" />
+                                    <Text text="{Supplier/ContactName} ({Supplier/ContactTitle})" />
+                                    
+                                    <Label text="Phone" />
+                                    <Text text="{Supplier/Phone}" />
+                                    
+                                    <Label text="Address" />
+                                    <Text text="{Supplier/Address}, {Supplier/City}, {Supplier/Country}" />
+                                </form:content>
+                            </form:SimpleForm>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- SECTION 3: Order History -->
+            <uxap:ObjectPageSection title="Recent Orders" titleUppercase="false" class="sapUiLargeMarginBottom">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection titleUppercase="false">
+                        <uxap:blocks>
+                            <Table items="{path: 'Order_Details', parameters: {expand: 'Order/Customer'}}" noDataText="No orders found">
+                                <columns>
+                                    <Column width="6rem">
+                                        <Text text="Order ID" />
+                                    </Column>
+                                    <Column width="10rem">
+                                        <Text text="Customer" />
+                                    </Column>
+                                    <Column width="8rem">
+                                        <Text text="Order Date" />
+                                    </Column>
+                                    <Column hAlign="End" width="6rem">
+                                        <Text text="Quantity" />
+                                    </Column>
+                                    <Column hAlign="End" width="7rem">
+                                        <Text text="Unit Price" />
+                                    </Column>
+                                    <Column hAlign="End" width="6rem">
+                                        <Text text="Discount" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <Text text="{OrderID}" />
+                                            <Text text="{Order/Customer/CompanyName}" />
+                                            <Text text="{path: 'Order/OrderDate', type: 'sap.ui.model.type.Date', formatOptions: {style: 'medium'}}" />
+                                            <Text text="{Quantity}" />
+                                            <ObjectNumber number="{path: 'UnitPrice'}" unit="$" emphasized="false" state="{path: 'UnitPrice', formatter: '.formatter.priceState'}" />
+                                            <Text text="{path: 'Discount', type: 'sap.ui.model.type.Float', formatOptions: {style: 'percent'}}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+        </uxap:sections>
+
+        <uxap:footer>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <Button text="Close" press=".onNavBackPress" type="Transparent" />
+            </OverflowToolbar>
+        </uxap:footer>
+    </uxap:ObjectPageLayout>
 </mvc:View>
